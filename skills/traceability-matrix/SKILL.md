@@ -23,7 +23,31 @@ Systematic method for verifying complete coverage between a product specificatio
 
 ## Core Principle
 
-**The entity that audits should not be the entity that authored.** This skill should ideally run in a fresh context — a new conversation that reads both documents cold. The agent that wrote the build plan is blind to its own gaps.
+**The entity that audits should not be the entity that authored.** This skill should run in a fresh context that reads both documents cold — either a dispatched agent (see Dispatch Protocol below) or a new conversation. The agent that wrote the build plan is blind to its own gaps.
+
+## Dispatch Protocol
+
+The standard way to satisfy the fresh-context requirement without a manual conversation break — this is what makes auto-advancing from Session 2 into Session 2.5 legitimate:
+
+```
+Dispatch a general-purpose agent with the following prompt:
+
+"You are auditing a build plan for complete coverage of its masterplan.
+Use the traceability-matrix skill for the methodology.
+
+1. Read [product]_masterplan.md in full — do not skim
+2. Read [product]_buildplan.md in full — do not skim
+3. Walk every masterplan section with implementable elements; extract every
+   discrete element and check it against the build plan's issues and
+   acceptance criteria
+4. Produce [product]_traceability_matrix.md in the skill's document structure
+5. For every GAP, propose a resolution (add issue / extend issue / flag as
+   possible intentional omission — do not decide omissions yourself)
+
+Be exhaustive. You did not write these documents; trust only what they say."
+```
+
+The dispatching session then reviews the returned matrix, applies the gap resolutions to the build plan (confirming any intentional omissions with the person), and updates the matrix statuses.
 
 ## Process
 

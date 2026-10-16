@@ -20,9 +20,27 @@ Systematic method for verifying frontend implementations against acceptance crit
 - Checking build/lint/test results (use Gate 1 automated checks)
 - Reviewing code quality (use Gate 5 code review)
 
+## Tool Availability
+
+This skill's steps are written against `preview_*` tools. If those are not available in the current environment, use the equivalent available browser tooling (e.g., the claude-in-chrome MCP tools) — the method is identical, only the tool names differ:
+
+| Referenced tool | claude-in-chrome equivalent |
+|-----------------|-----------------------------|
+| `preview_start` | Start the dev server with Bash (background), open the URL in a new tab |
+| `preview_snapshot` | `read_page` (accessibility snapshot) |
+| `preview_screenshot` | `computer` (screenshot action) |
+| `preview_inspect` | `javascript_tool` with `getComputedStyle` |
+| `preview_console_logs` | `read_console_messages` |
+| `preview_click` / `preview_fill` | `computer` (click/type) or `form_input` |
+| `preview_eval` | `javascript_tool` |
+| `preview_network` | `read_network_requests` |
+| `preview_resize` | `resize_window` |
+
+For a static HTML file (e.g., a Session 3 prototype), skip the dev server entirely — open the file directly in the browser.
+
 ## Prerequisites
 
-The application must be running. If it's not already started, use `preview_start` to launch the dev server before beginning verification.
+The application must be running. If it's not already started, use `preview_start` (or the mapped equivalent above) to launch the dev server before beginning verification.
 
 ## Core Process
 
